@@ -9,11 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
 
+	ImageButton myNiceButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
+        addListenerOnButton();
     }
 
 
@@ -63,8 +66,21 @@ public class MainActivity extends ActionBarActivity {
         }
     }
     
-    Button aPrettyNiceButton = (Button)findViewById(R.id.theButtonThing);
+    public void addListenerOnButton(){
+    	myNiceButton=(ImageButton)findViewById(R.id.theButtonThing);
+        
+    	myNiceButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+ 
+			   Toast.makeText(MainActivity.this,
+				"ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+ 
+			}
+ 
+		});
+        	
+    }
     
-    	
 
 }
