@@ -26,7 +26,6 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        
         addListenerOnButton();
     }
 
@@ -72,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
         
     	myNiceButton.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View myNiceButton) {
+			public void onClick(View arg0) {
  
 			   Toast.makeText(MainActivity.this,
 				"ImageButton is clicked!", Toast.LENGTH_SHORT).show();

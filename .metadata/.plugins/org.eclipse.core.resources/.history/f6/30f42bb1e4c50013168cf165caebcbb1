@@ -70,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
     public void addListenerOnButton(){
     	myNiceButton=(ImageButton)findViewById(R.id.theButtonThing);
         
-    	myNiceButton.setOnClickListener(new View.OnClickListener() {
+    	/*myNiceButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View myNiceButton) {
  
@@ -79,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
  
 			}
  
-		});
+		});*/
         	
     }
     

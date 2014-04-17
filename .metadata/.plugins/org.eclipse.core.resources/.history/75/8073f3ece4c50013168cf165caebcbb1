@@ -74,8 +74,8 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void onClick(View myNiceButton) {
  
-			   Toast.makeText(MainActivity.this,
-				"ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+			   /*Toast.makeText(MainActivity.this,
+				"ImageButton is clicked!", Toast.LENGTH_SHORT).show();*/
  
 			}
  

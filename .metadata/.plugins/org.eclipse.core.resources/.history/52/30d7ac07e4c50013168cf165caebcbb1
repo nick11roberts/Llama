@@ -26,8 +26,7 @@ public class MainActivity extends ActionBarActivity {
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
         }
-        
-        addListenerOnButton();
+    //    addListenerOnButton();
     }
 
 
@@ -67,21 +66,21 @@ public class MainActivity extends ActionBarActivity {
         }
     }
     
-    public void addListenerOnButton(){
+    /*public void addListenerOnButton(){
     	myNiceButton=(ImageButton)findViewById(R.id.theButtonThing);
         
     	myNiceButton.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View myNiceButton) {
+			public void onClick(View view) {
  
-			   Toast.makeText(MainActivity.this,
+			  /* Toast.makeText(MainActivity.this,
 				"ImageButton is clicked!", Toast.LENGTH_SHORT).show();
  
 			}
  
 		});
         	
-    }
+    }*/
     
 
 }
