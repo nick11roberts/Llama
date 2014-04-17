@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="actualLlama.svg"
+   inkscape:export-filename="/home/nikka/Desktop/llamabuilder.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="67.553835"
+     inkscape:cy="516.36694"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="852"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="opacity:0.30582281000000000;fill:#00a100;fill-opacity:1;stroke:#680000;stroke-width:6.29999999999999982;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.93269228999999998;stroke-dasharray:151.19999999999998863, 6.29999999999999982;stroke-dashoffset:62.99998899000001273;marker-start:none;marker-mid:none;"
+       d="m 86.923118,231.46143 79.673392,-54.5483 1.81075,-95.459508 50.70126,177.281958 7.24304,231.83025 340.42267,-10.90966 3.62153,-57.27571 56.13352,120.00625 -16.29682,70.91278 -66.99809,125.46109 3.62152,87.27727 -28.97214,163.64487 9.05379,-139.09815 -85.10567,-139.09815 -79.67339,35.4564 -95.97023,-30.00157 -10.86455,261.83182 -82.5234,-511.97558 -46.04049,-107.14756 14.48607,-65.45795 16.29683,-43.63865 z"
+       id="path2985"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccccccccccc" />
+    <path
+       sodipodi:nodetypes="cccccccccccccccccccccc"
+       inkscape:connector-curvature="0"
+       id="path4115"
+       d="m 106.84147,166.00348 79.67339,-54.5483 1.81076,-95.459509 50.70125,177.281959 7.24304,231.83025 340.42268,-10.90966 3.62152,-57.27571 56.13352,120.00625 -16.29682,70.91278 -66.99808,125.46109 3.62151,87.27727 -28.97214,163.64487 9.05379,-139.09815 -85.10567,-139.09815 -79.67339,35.4564 -95.97023,-30.00157 -10.86455,261.83182 -82.5234,-511.97558 -46.04048,-107.14756 14.48607,-65.45796 16.29682,-43.63864 z"
+       style="opacity:0.30582281000000000;fill:#00a1c2;fill-opacity:1;stroke:#680000;stroke-width:6.29999999999999982;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:0.93269228999999998;stroke-dasharray:151.19999999999998863, 6.29999999999999982;stroke-dashoffset:62.99998899000001273;marker-start:none;marker-mid:none;" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4131"
+       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:aakar;-inkscape-font-specification:aakar Medium"><flowRegion
+         id="flowRegion4133"><rect
+           id="rect4135"
+           width="369.71582"
+           height="155.56349"
+           x="204.05081"
+           y="403.84424"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:aakar;-inkscape-font-specification:aakar Medium" /></flowRegion><flowPara
+         id="flowPara4137" /></flowRoot>  </g>
+</svg>
