@@ -63,8 +63,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
     
-    Button aPrettyNiceButton = (Button)findViewById(R.id.theButtonThing);
+    Button NicsButton = (Button)findViewById(R.id.theButtonThing);
     
-    	
 
 }
