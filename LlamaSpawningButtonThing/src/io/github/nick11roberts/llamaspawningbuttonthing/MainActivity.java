@@ -16,16 +16,19 @@ import android.os.Build;
 public class MainActivity extends ActionBarActivity {
 
 	ImageButton myNiceButton;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        myNiceButton = (ImageButton)findViewById(R.id.theButtonThing); 
 
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
-        }
+        }*/
         
         addListenerOnButton();
     }
@@ -54,7 +57,8 @@ public class MainActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    
+    /*public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
         }
@@ -65,10 +69,10 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
         }
-    }
+    }*/
     
     public void addListenerOnButton(){
-    	myNiceButton=(ImageButton)findViewById(R.id.theButtonThing);
+    	
         
     	myNiceButton.setOnClickListener(new View.OnClickListener() {
 			@Override

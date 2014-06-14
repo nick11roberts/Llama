@@ -858,10 +858,11 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070003;
+        public static final int abc_search_url_text_holo=0x7f070004;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
+        public static final int bg_color=0x7f070003;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1098,7 +1099,6 @@ containing a value of this type.
         public static final int beginning=0x7f050011;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
-        public static final int container=0x7f05003c;
         public static final int default_activity_button=0x7f050028;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
@@ -1138,7 +1138,8 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
-        public static final int theButtonThing=0x7f05003d;
+        public static final int theButtonThing=0x7f05003c;
+        public static final int theButtonThingFragment=0x7f05003d;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int up=0x7f050021;
@@ -1243,21 +1244,13 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abc_shareactionprovider_share_with_application=0x7f0a000b;
-        public static final int action_settings=0x7f0a000f;
+        public static final int action_settings=0x7f0a0010;
         public static final int app_name=0x7f0a000d;
+        public static final int button_description=0x7f0a000f;
         public static final int hello_world=0x7f0a000e;
     }
     public static final class style {
         /** 
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
-
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
     
@@ -1271,7 +1264,6 @@ containing a value of this type.
          */
         public static final int AppBaseTheme=0x7f0b008b;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0b008c;
         /**  Mimic text appearance in select_dialog_item.xml 

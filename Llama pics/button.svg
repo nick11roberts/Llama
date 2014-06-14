@@ -7,53 +7,19 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="744.09448819"
    height="1052.3622047"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.4 r"
    sodipodi:docname="button.svg"
-   inkscape:export-filename="/home/nikka/Desktop/button.png"
+   inkscape:export-filename="C:\Users\Nikolai\Desktop\Llama\Llama pics\button.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient3755">
-      <stop
-         style="stop-color:#000000;stop-opacity:1;"
-         offset="0"
-         id="stop3757" />
-      <stop
-         style="stop-color:#00d7be;stop-opacity:1"
-         offset="1"
-         id="stop3759" />
-    </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3755"
-       id="linearGradient3761"
-       x1="152.78571"
-       y1="492.36218"
-       x2="1224.3572"
-       y2="506.64789"
-       gradientUnits="userSpaceOnUse" />
-    <filter
-       inkscape:collect="always"
-       id="filter3814"
-       x="-0.29355298"
-       width="1.587106"
-       y="-0.3041451"
-       height="1.6082902">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="70.243034"
-         id="feGaussianBlur3816" />
-    </filter>
     <filter
        id="filter4271"
        inkscape:label="Inset"
@@ -98,17 +64,21 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="86.205932"
-     inkscape:cy="449.39661"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="383.21619"
+     inkscape:cy="633.59764"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     showgrid="false"
-     inkscape:window-width="1600"
-     inkscape:window-height="852"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1" />
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1003"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3004" />
+  </sodipodi:namedview>
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -117,7 +87,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -126,38 +96,78 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       sodipodi:type="arc"
-       style="opacity:1;fill:url(#linearGradient3761);fill-opacity:1;stroke:#000000;stroke-width:73.70000000000000284;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter3814)"
-       id="path2985"
-       sodipodi:cx="441.42856"
-       sodipodi:cy="492.36218"
-       sodipodi:rx="287.14285"
-       sodipodi:ry="277.14285"
-       d="m 728.57141,492.36218 a 287.14285,277.14285 0 1 1 -574.2857,0 287.14285,277.14285 0 1 1 574.2857,0 z" />
+       transform="translate(4,6)"
+       d="m 560,392.36218 a 220,220 0 1 1 -440,0 220,220 0 1 1 440,0 z"
+       sodipodi:ry="220"
+       sodipodi:rx="220"
+       sodipodi:cy="392.36218"
+       sodipodi:cx="340"
+       id="path3810"
+       style="fill:#0c699c;fill-opacity:1;stroke:none"
+       sodipodi:type="arc" />
     <path
        sodipodi:type="arc"
-       style="fill:#00d0f2;fill-opacity:0.21153846000000001;stroke:#700000;stroke-width:8.89999961999999911;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8.90000000000000036, 8.90000000000000036;stroke-dashoffset:0"
-       id="path2989"
-       sodipodi:cx="484.28571"
-       sodipodi:cy="568.07648"
-       sodipodi:rx="247.14285"
-       sodipodi:ry="258.57144"
-       d="m 731.42856,568.07648 a 247.14285,258.57144 0 1 1 -494.28571,0 247.14285,258.57144 0 1 1 494.28571,0 z"
-       transform="matrix(1.2272133,0,0,1.2171707,-167.17902,-180.51244)" />
+       style="fill:#0c699c;fill-opacity:1;stroke:none"
+       id="path3812"
+       sodipodi:cx="340"
+       sodipodi:cy="392.36218"
+       sodipodi:rx="220"
+       sodipodi:ry="220"
+       d="m 560,392.36218 a 220,220 0 1 1 -440,0 220,220 0 1 1 440,0 z"
+       transform="translate(2,4)" />
+    <path
+       transform="translate(0,2)"
+       d="m 560,392.36218 a 220,220 0 1 1 -440,0 220,220 0 1 1 440,0 z"
+       sodipodi:ry="220"
+       sodipodi:rx="220"
+       sodipodi:cy="392.36218"
+       sodipodi:cx="340"
+       id="path3814"
+       style="fill:#0c699c;fill-opacity:1;stroke:none"
+       sodipodi:type="arc" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#0c699c;fill-opacity:1;stroke:none"
+       id="path3808"
+       sodipodi:cx="340"
+       sodipodi:cy="392.36218"
+       sodipodi:rx="220"
+       sodipodi:ry="220"
+       d="m 560,392.36218 a 220,220 0 1 1 -440,0 220,220 0 1 1 440,0 z"
+       transform="translate(6,8)" />
+    <path
+       d="m 560,392.36218 a 220,220 0 1 1 -440,0 220,220 0 1 1 440,0 z"
+       sodipodi:ry="220"
+       sodipodi:rx="220"
+       sodipodi:cy="392.36218"
+       sodipodi:cx="340"
+       id="path3036"
+       style="fill:#1e8d9c;fill-opacity:1;stroke:none"
+       sodipodi:type="arc" />
     <flowRoot
        xml:space="preserve"
-       id="flowRoot4203"
-       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffd0c2;fill-opacity:0.6442308;stroke:none;filter:url(#filter4271);font-family:aakar;-inkscape-font-specification:aakar Medium"
-       transform="matrix(1.0969036,0,0,1.2069538,13.904156,-115.51257)"><flowRegion
-         id="flowRegion4205"><rect
-           id="rect4207"
-           width="500.00003"
-           height="394.28571"
-           x="180"
-           y="343.79074"
-           style="font-size:72px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;fill:#ffd0c2;fill-opacity:0.6442308;font-family:aakar;-inkscape-font-specification:aakar Medium" /></flowRegion><flowPara
-         id="flowPara4209">GIVE ME A</flowPara><flowPara
-         id="flowPara4211">LLAMA. </flowPara><flowPara
-         id="flowPara4213">OR GIVE ME </flowPara><flowPara
-         id="flowPara4215">DEATH.</flowPara></flowRoot>  </g>
+       id="flowRoot3008"
+       style="font-size:72px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Agency FB;-inkscape-font-specification:Agency FB"
+       transform="matrix(1,0,0,1.6842394,-20,-236.54185)"><flowRegion
+         id="flowRegion3010"><rect
+           id="rect3012"
+           width="309.28571"
+           height="307.14285"
+           x="200"
+           y="240.93361"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;text-anchor:middle;font-family:Agency FB;-inkscape-font-specification:Agency FB" /></flowRegion><flowPara
+         id="flowPara3018">PRESS </flowPara><flowPara
+         id="flowPara3024">~  4  ~ </flowPara><flowPara
+         id="flowPara3026">LLAMA </flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3028"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:72px;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;text-align:center"><flowRegion
+         id="flowRegion3030"><rect
+           id="rect3032"
+           width="62.857143"
+           height="130.71428"
+           x="308.57144"
+           y="395.93362"
+           style="text-anchor:middle;text-align:center" /></flowRegion><flowPara
+         id="flowPara3034"></flowPara></flowRoot>  </g>
 </svg>
