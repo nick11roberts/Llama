@@ -1,0 +1,57 @@
+package io.github.nick11roberts.llamaspawningbuttonthing;
+
+import java.util.ArrayList;
+import java.util.List;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+public class MainActivity extends ActionBarActivity {
+	
+	private static boolean DEBUG = true; 
+	private RelativeLayout mainLayout;
+	private ImageButton myNiceButton;
+	private List<ImageView> llamaProscriptionList = new ArrayList<ImageView>();
+	private int indexOfLlamaProscriptionList = 0;
+	private ImageView aLlama = new ImageView(this);
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        mainLayout = (RelativeLayout)findViewById(R.id.relLayoutMain);
+        
+        myNiceButton = (ImageButton)findViewById(R.id.theButtonThing); 
+        
+        addListenerOnButton();
+    }
+
+    
+    public void addListenerOnButton(){
+    	        
+    	myNiceButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View myNiceButton) {
+				
+				if(DEBUG){
+					Toast.makeText(MainActivity.this,
+						"ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+				}
+				
+				llamaProscriptionList.add(aLlama);
+				mainLayout.addView(llamaProscriptionList.get(0));
+				
+ 
+			}
+ 
+		});
+        	
+    }
+    
+
+}
