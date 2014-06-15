@@ -1,6 +1,4 @@
-INDEX VERSION 1.126+C:\Users\Nikolai\Desktop\Llama\.metadata\.plugins\org.eclipse.jdt.core
-1126205333.index
-478079200.index
-1284074322.index
-1737683905.index
-4115082507.index
+INDEX VERSION 1.126+/home/nikka/Desktop/Llama/.metadata/.plugins/org.eclipse.jdt.core
+1567460246.index
+986337641.index
+1270315800.index
