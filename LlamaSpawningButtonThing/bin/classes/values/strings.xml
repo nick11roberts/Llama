@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Llama Spawning Button Thing</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="button_description">Generates a llama. Press it.</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
