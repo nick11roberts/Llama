@@ -1,0 +1,3 @@
+[submodule "LlamaSpawningButtonThing/assets/web/Llama-Web"]
+	path = LlamaSpawningButtonThing/assets/web/Llama-Web
+	url = https://github.com/nick11roberts/Llama-Web.git
