@@ -13,7 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends ActionBarActivity {
+public class LlamaActivity extends ActionBarActivity {
 	
 	private static int IMAGE_HEIGHT = 120;
 	private static int MIN_ROTATION = -60;
@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_llama);
 
         mainLayout = (RelativeLayout)findViewById(R.id.relLayoutMain);
         
