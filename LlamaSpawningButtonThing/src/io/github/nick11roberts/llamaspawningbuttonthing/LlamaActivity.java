@@ -2,49 +2,34 @@ package io.github.nick11roberts.llamaspawningbuttonthing;
 
 import android.support.v7.app.ActionBarActivity;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 public class LlamaActivity extends ActionBarActivity {
-	
-	
-	
+
     @SuppressLint("SetJavaScriptEnabled")
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llama_web);
         
-        
-        final WebView localLlamaEmbed = (WebView)findViewById(R.id.llamaBrowser);   
-        localLlamaEmbed.getSettings().setJavaScriptEnabled(true);  
-          
-//        /* WebViewClient must be set BEFORE calling loadUrl! */  
-//        webview.setWebViewClient(new WebViewClient() {  
-//            @Override  
-//            public void onPageFinished(WebView view, String url)  
-//            {  
-//                webview.loadUrl("javascript:(function() { " +  
-//                        "document.getElementsByTagName('body')[0].style.color = 'red'; " +  
-//                        "})()");  
-//            }  
-//        });  
-          
-        
-        localLlamaEmbed.setBackgroundColor(0x00000000);
-        localLlamaEmbed.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
-        
-        localLlamaEmbed.loadUrl("file:///android_asset/web/Llama-Web/index.html");  
+        LinearLayout mainLayout = (LinearLayout)findViewById(R.id.mainLayout);
         
         
-        
-    }
+        NoZoomControllWebView web = new NoZoomControllWebView(this);
+        web.setId(1);
+        web.getSettings().setJavaScriptEnabled(true);
+        web.getSettings().setDisplayZoomControls(false);
+        web.getSettings().setBuiltInZoomControls(false);
+        web.getSettings().setSupportZoom (false);
+        web.getSettings().setUseWideViewPort(false);
+        web.setBackgroundColor(0x00000000);
+        web.setLayerType(NoZoomControllWebView.LAYER_TYPE_SOFTWARE, null);
+        web.loadUrl("file:///android_asset/web/Llama-Web/index.html");
+        mainLayout.addView(web, new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 
-    
-    
-    
-    
-    
+    }
 
 }
