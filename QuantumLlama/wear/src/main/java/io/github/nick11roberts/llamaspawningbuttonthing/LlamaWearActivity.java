@@ -1,5 +1,6 @@
 package io.github.nick11roberts.llamaspawningbuttonthing;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
@@ -9,6 +10,7 @@ public class LlamaWearActivity extends Activity {
 
     private TextView mTextView;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +20,8 @@ public class LlamaWearActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+
+
             }
         });
     }

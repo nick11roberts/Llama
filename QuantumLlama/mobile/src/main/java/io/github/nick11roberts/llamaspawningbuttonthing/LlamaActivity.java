@@ -1,10 +1,7 @@
 package io.github.nick11roberts.llamaspawningbuttonthing;
 
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.annotation.SuppressLint;
@@ -13,14 +10,12 @@ import android.annotation.SuppressLint;
 public class LlamaActivity extends Activity {
 
     @SuppressLint("SetJavaScriptEnabled")
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llama);
 
         LinearLayout mainLayout = (LinearLayout)findViewById(R.id.mainLayout);
-
 
         NoZoomControlWebView web = new NoZoomControlWebView(this);
         //web.setId(1);
