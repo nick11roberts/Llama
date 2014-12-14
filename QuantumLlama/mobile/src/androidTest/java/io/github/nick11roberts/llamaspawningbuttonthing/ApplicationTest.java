@@ -1,4 +1,4 @@
-package nick11roberts.github.io.llamaspawningbuttonthing;
+package io.github.nick11roberts.llamaspawningbuttonthing;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

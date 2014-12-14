@@ -1,4 +1,4 @@
-package nick11roberts.github.io.llamaspawningbuttonthing;
+package io.github.nick11roberts.llamaspawningbuttonthing;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

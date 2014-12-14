@@ -1,4 +1,4 @@
-package nick11roberts.github.io.llamaspawningbuttonthing;
+package io.github.nick11roberts.llamaspawningbuttonthing;
 
 import java.lang.reflect.Method;
 import android.content.Context;
