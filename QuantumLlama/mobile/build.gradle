@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "nick11roberts.github.io.llamaspawningbuttonthing"
+        applicationId "io.github.nick11roberts.llamaspawningbuttonthing"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 2
