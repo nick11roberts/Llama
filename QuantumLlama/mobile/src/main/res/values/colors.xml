@@ -2,5 +2,5 @@
 <resources>
     <color name = "bg_color_grey">#777777</color>
     <color name = "bg_color_white">#ffffff</color>
-    <color name = "bg_color">#777777</color>
+    <color name = "bg_color">#ffececec</color>
 </resources>
