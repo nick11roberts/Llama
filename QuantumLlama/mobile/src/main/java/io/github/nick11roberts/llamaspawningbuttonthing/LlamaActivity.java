@@ -2,10 +2,6 @@ package io.github.nick11roberts.llamaspawningbuttonthing;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -16,13 +12,11 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 
 public class LlamaActivity extends Activity {
 
     private static int LLAMA_SIZE_MULTIPLIER = 150;
-    private static int BUTTON_SIZE_MULTIPLIER = 300;
+    private static int BUTTON_SIZE_MULTIPLIER = 400;
     private static int MIN_ROTATION = -90;
     private static int MAX_ROTATION = 90;
     private RelativeLayout mainLayout;
@@ -47,28 +41,10 @@ public class LlamaActivity extends Activity {
 
         ImageButton b = new ImageButton(this);
         b.setLayoutParams(parameters);
+        b.getBackground().setAlpha(0);
         b.setImageResource(R.drawable.button);
+        b.setScaleType(ImageView.ScaleType.FIT_CENTER);
         mainLayout.addView(b);
-
-        /*
-        final DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        */
-
-        //myNiceButton = (ImageButton)findViewById(R.id.llamaButton);
-        /*
-        int buttonSize=0;
-
-        if(metrics.widthPixels <= metrics.heightPixels)
-            buttonSize = metrics.widthPixels/metrics.heightPixels;
-        else
-            buttonSize = metrics.heightPixels/metrics.widthPixels;
-        buttonSize*=BUTTON_SIZE_MULTIPLIER;
-
-
-        myNiceButton.setMinimumWidth(buttonSize);
-        myNiceButton.setMinimumHeight(buttonSize);
-        */
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +53,6 @@ public class LlamaActivity extends Activity {
                 Display display = getWindowManager().getDefaultDisplay();
                 DisplayMetrics metrics = new DisplayMetrics ();
                 display.getMetrics(metrics);
-                float density  = getResources().getDisplayMetrics().density;
 
                 int llamaSize = relativeImageScale(LLAMA_SIZE_MULTIPLIER);
 
@@ -99,7 +74,7 @@ public class LlamaActivity extends Activity {
 
 
                 ///// POSITION SPECIFIC LLAMA
-                layoutParams.leftMargin = (int) Math.round(Math.random()*(metrics.widthPixels-(llamaSize*Math.sqrt(2))));
+                layoutParams.leftMargin = (int) Math.round(Math.random()*(metrics.widthPixels-llamaSize));
                 layoutParams.topMargin = (int) Math.round(Math.random()*(metrics.heightPixels-(llamaSize*Math.sqrt(2))));
 
 
@@ -128,7 +103,6 @@ public class LlamaActivity extends Activity {
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics ();
         display.getMetrics(metrics);
-        float density  = getResources().getDisplayMetrics().density;
 
         int imageSize;
 
