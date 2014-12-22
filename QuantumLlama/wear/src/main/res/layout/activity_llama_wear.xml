@@ -7,4 +7,8 @@
     app:rectLayout="@layout/rect_activity_llama_wear"
     app:roundLayout="@layout/round_activity_llama_wear" tools:context=".LlamaWearActivity"
     tools:deviceIds="wear">
+
+
+
+
 </android.support.wearable.view.WatchViewStub>

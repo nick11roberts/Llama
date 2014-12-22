@@ -20,7 +20,6 @@ public class LlamaActivity extends Activity {
     private static int MIN_ROTATION = -90;
     private static int MAX_ROTATION = 90;
     private RelativeLayout mainLayout;
-    private ImageButton myNiceButton;
     private List<ImageView> llamaList = new ArrayList<ImageView>();
     private int indexOfLlamaList = 0;
     private Context c = this;
