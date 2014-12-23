@@ -1,10 +1,17 @@
 package io.github.nick11roberts.llamaspawningbuttonthing;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +39,16 @@ public class LlamaActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llama);
+
+        Typeface font = Typeface.createFromAsset(getAssets(),"fonts/Fipps-Regular.otf");
+
+        SpannableString s = new SpannableString("Llama Button");
+        s.setSpan(new CustomTypefaceSpan("Fipps-Regular.otf", font), 0, s.length(),
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Update the action bar title with the TypefaceSpan instance
+        ActionBar actionBar = getActionBar();
+        actionBar.setTitle(s);
 
         mainLayout = (RelativeLayout)findViewById(R.id.relLayoutMain);
 
@@ -75,9 +92,13 @@ public class LlamaActivity extends Activity {
                 (newestLlama).setRotation(MIN_ROTATION + (int) (Math.random() * ((MAX_ROTATION - MIN_ROTATION) + 1)));
 
 
+                TypedValue tv = new TypedValue();
+                c.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
+                int actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
+
                 ///// POSITION SPECIFIC LLAMA
                 layoutParams.leftMargin = (int) Math.round(Math.random()*(metrics.widthPixels-llamaSize));
-                layoutParams.topMargin = (int) Math.round(Math.random()*(metrics.heightPixels-(llamaSize*Math.sqrt(2))));
+                layoutParams.topMargin = (int) Math.round(Math.random()*(metrics.heightPixels-(llamaSize*Math.sqrt(2))-actionBarHeight));
 
 
                 //// ADD TO LLAMA LIST

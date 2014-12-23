@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name = "primary">#42c7e2</color>
-    <color name = "primary_dark">#2e8b9e</color>
+    <color name = "primary_dark">#349fb4</color>
     <color name = "background">#775566</color>
     <color name = "llama">#ccc0b0</color>
+    <color name = "accent">#ccc0b0</color>
 </resources>

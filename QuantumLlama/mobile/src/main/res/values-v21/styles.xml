@@ -1,0 +1,23 @@
+
+<resources>
+    <!-- the theme applied to the application or activity -->
+    <style name="CustomActionBarTheme"
+        parent="android:Theme.Material">
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/background</item>
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:actionMenuTextColor">@color/background</item>
+        <item name="android:icon">@drawable/action_bar_button</item>
+        <item name="android:actionBarWidgetTheme">@style/ActionBarWidget</item>
+    </style>
+
+    <!-- ActionBar title widget -->
+    <style name="ActionBarWidget"
+        parent="android:Theme.Material">
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColor">@color/background</item>
+    </style>
+
+</resources>

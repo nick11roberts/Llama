@@ -6,6 +6,8 @@
         <item name="android:windowBackground">@color/background</item>
         <item name="android:actionBarStyle">@style/LlamaActionBar</item>
         <item name="android:actionMenuTextColor">@color/background</item>
+        <item name="android:icon">@drawable/action_bar_button</item>
+        <item name="android:actionBarWidgetTheme">@style/ActionBarWidget</item>
     </style>
 
     <!-- ActionBar styles -->
@@ -20,4 +22,12 @@
         parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
         <item name="android:textColor">@color/background</item>
     </style>
+
+    <!-- ActionBar title widget -->
+    <style name="ActionBarWidget"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColor">@color/background</item>
+    </style>
+
 </resources>
