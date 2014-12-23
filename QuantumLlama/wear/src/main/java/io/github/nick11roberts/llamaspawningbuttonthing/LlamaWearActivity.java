@@ -35,7 +35,7 @@ public class LlamaWearActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mainLayout = (RelativeLayout)findViewById(R.id.wearSquareRelLayoutMain);
+                mainLayout = (RelativeLayout)findViewById(R.id.wearRelLayoutMain);
 
                 int buttonSize = relativeImageScale(BUTTON_SIZE_MULTIPLIER);
 

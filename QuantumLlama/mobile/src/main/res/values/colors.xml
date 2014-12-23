@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name = "bg_color_grey">#777777</color>
-    <color name = "bg_color_white">#ffffff</color>
-    <color name = "bg_color">#775566</color>
+    <color name = "primary">#42c7e2</color>
+    <color name = "primary_dark">#2e8b9e</color>
+    <color name = "background">#775566</color>
+    <color name = "llama">#ccc0b0</color>
 </resources>
