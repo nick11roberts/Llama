@@ -12,6 +12,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,23 +25,23 @@ import java.util.List;
 public class LlamaActivity extends Activity {
 
     private RelativeLayout mainLayout;
-    private List<ImageView> llamaList = new ArrayList<>();
+    //private List<ImageView> llamaList = new ArrayList<>();
+    private List<Integer> llamaIdList = new ArrayList<>();
+    private UniqueViewIdCreator idCreator = new UniqueViewIdCreator();
     private List<RandomLlamaAttributes> randomLlamaAttributesList = new ArrayList<>();
-    //private int indexOfLlamaList = 0;
     private Context c = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llama);
 
-        int buttonSizeMultiplier = 400;
-        int buttonSize = relativeImageScale(buttonSizeMultiplier);
+
         Typeface font = Typeface.createFromAsset(getAssets(),"fonts/Fipps-Regular.otf");
         SpannableString s = new SpannableString("Llama Button");
         ActionBar actionBar = getActionBar();
-        RelativeLayout.LayoutParams parameters= new RelativeLayout.LayoutParams(buttonSize, buttonSize);
-        ImageButton llamaGeneratingButton = new ImageButton(this);
+
 
         mainLayout = (RelativeLayout)findViewById(R.id.relLayoutMain);
 
@@ -48,13 +49,7 @@ public class LlamaActivity extends Activity {
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         actionBar.setTitle(s);
 
-        parameters.addRule(RelativeLayout.CENTER_IN_PARENT);
 
-        llamaGeneratingButton.setLayoutParams(parameters);
-        llamaGeneratingButton.getBackground().setAlpha(0);
-        llamaGeneratingButton.setImageResource(R.drawable.button);
-        llamaGeneratingButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        mainLayout.addView(llamaGeneratingButton);
 
         if(savedInstanceState!=null){
             int indexOfLlamaList = savedInstanceState.getInt("indexOfLlamaList");
@@ -73,7 +68,8 @@ public class LlamaActivity extends Activity {
                     addLlamaToScreen(randomLlamaAttributesList.get(i));
         }
 
-        llamaGeneratingButton.setOnClickListener(new View.OnClickListener() {
+
+        addButtonToScreen().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View myNiceButton) {
 
@@ -116,56 +112,62 @@ public class LlamaActivity extends Activity {
 
     }
 
+    private ImageButton addButtonToScreen(){
+        int buttonSizeMultiplier = 400;
+        int buttonSize = relativeImageScale(buttonSizeMultiplier);
+
+        RelativeLayout.LayoutParams parameters= new RelativeLayout.LayoutParams(buttonSize, buttonSize);
+        ImageButton llamaGeneratingButton = new ImageButton(this);
+
+        parameters.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+        llamaGeneratingButton.setLayoutParams(parameters);
+        llamaGeneratingButton.getBackground().setAlpha(0);
+        llamaGeneratingButton.setImageResource(R.drawable.button);
+        llamaGeneratingButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        mainLayout.addView(llamaGeneratingButton);
+
+        return llamaGeneratingButton;
+    }
+
     private void addLlamaToScreen(RandomLlamaAttributes newestLlamaAttributes){
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics ();
+        int maxRotation = 90;
+        int minRotation = -90;
         int llamaSizeMultiplier = 150;
         int llamaSize = relativeImageScale(llamaSizeMultiplier);
         ImageView newestLlama = new ImageView(c);
         TypedValue tv = new TypedValue();
         int actionBarHeight;
+        int newId=idCreator.createViewId();
 
         display.getMetrics(metrics);
-
-        /* SET HEIGHT LAYOUT PARAMETER */
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(llamaSize, llamaSize);
-
-        /* SET SPECIFIC LLAMA IMAGE */
         (newestLlama).setImageResource(R.drawable.llama);
-
-        /* ROTATIONAL AXIS FOR SPECIFIC LLAMA */
         (newestLlama).setPivotX((newestLlama).getX()+(llamaSize/2));
         (newestLlama).setPivotY((newestLlama).getY()+(llamaSize/2));
 
-        /* RANDOMIZE LLAMA ROTATION */
-        int maxRotation = 90;
-        int minRotation = -90;
         (newestLlama).setRotation(minRotation + (int) (newestLlamaAttributes.getRotation() * ((maxRotation - minRotation) + 1)));
-
         c.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
         actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
-
-        /* POSITION SPECIFIC LLAMA */
         layoutParams.leftMargin = (int) Math.round(newestLlamaAttributes.getX()*(metrics.widthPixels-llamaSize));
         layoutParams.topMargin = (int) Math.round(newestLlamaAttributes.getY()*(metrics.heightPixels-(llamaSize*Math.sqrt(2))-actionBarHeight));
-
-        /* SET PARAMETERS */
         newestLlama.setLayoutParams(layoutParams);
 
-        /* ADD TO LLAMA LIST */
-        llamaList.add(newestLlama);
+        llamaIdList.add(newId);
+        newestLlama.setId(newId);
 
-        /* ADD VIEW */
+        //llamaList.add(newestLlama);
         mainLayout.addView(newestLlama);
-
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         /* Inflate the menu; this adds items to the action bar if it is present. */
-        getMenuInflater().inflate(R.menu.menu_llama, menu);
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_llama, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -177,7 +179,19 @@ public class LlamaActivity extends Activity {
         */
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if(id == R.id.action_clear_llamas) {
+            for(int i=0; i<=llamaIdList.size()-1; i++){
+                mainLayout.removeView(findViewById(llamaIdList.get(i)));
+            }
+            randomLlamaAttributesList.clear();
+            return true;
+        }
+        else if(id == R.id.action_export_llamas){
+            /* Do something. */
+            return true;
+        }
+        else if(id == R.id.action_settings){
+            /* Do something. */
             return true;
         }
 
@@ -185,11 +199,10 @@ public class LlamaActivity extends Activity {
     }
 
     private int relativeImageScale(int multiplier){
+        int imageSize;
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics ();
         display.getMetrics(metrics);
-
-        int imageSize;
 
         if(metrics.heightPixels >= metrics.widthPixels)
             imageSize = (metrics.heightPixels/metrics.widthPixels)*multiplier;
@@ -198,6 +211,5 @@ public class LlamaActivity extends Activity {
 
         return imageSize;
     }
-
 
 }
