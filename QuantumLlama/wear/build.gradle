@@ -2,26 +2,39 @@ apply plugin: 'com.android.application'
 
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'llama'
+            keyPassword 'nick052595'
+            storeFile file('/home/nick/Desktop/LlamaKeystore')
+            storePassword 'nick052595'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
     defaultConfig {
         applicationId "io.github.nick11roberts.llamaspawningbuttonthing"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 1
-        versionName "0.1"
+        versionCode 4
+        versionName "3.0"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    productFlavors {
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.android.support:wearable:1.1.0'
     compile 'com.google.android.gms:play-services-wearable:6.5.87'
 }

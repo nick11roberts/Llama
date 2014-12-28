@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -19,17 +18,25 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.Wearable;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class LlamaActivity extends Activity {
+public class LlamaActivity extends Activity implements
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener{
 
     private RelativeLayout mainLayout;
-    //private List<ImageView> llamaList = new ArrayList<>();
     private List<Integer> llamaIdList = new ArrayList<>();
     private UniqueViewIdCreator idCreator = new UniqueViewIdCreator();
     private List<RandomLlamaAttributes> randomLlamaAttributesList = new ArrayList<>();
     private Context c = this;
+    GoogleApiClient googleClient;
 
 
     @Override
@@ -68,6 +75,12 @@ public class LlamaActivity extends Activity {
                     addLlamaToScreen(randomLlamaAttributesList.get(i));
         }
 
+
+        googleClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
 
         addButtonToScreen().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,7 +199,7 @@ public class LlamaActivity extends Activity {
             randomLlamaAttributesList.clear();
             return true;
         }
-        else if(id == R.id.action_export_llamas){
+        else if(id == R.id.action_wear_llamas){
             /* Do something. */
             return true;
         }
@@ -212,4 +225,58 @@ public class LlamaActivity extends Activity {
         return imageSize;
     }
 
+
+
+    /*
+     * FOR WEAR
+     */
+
+    // Connect to the data layer when the Activity starts
+    @Override
+    protected void onStart() {
+        super.onStart();
+        googleClient.connect();
+    }
+
+// Send a data object when the data layer connection is successful.
+
+    @Override
+    public void onConnected(Bundle connectionHint) {
+
+        String WEARABLE_DATA_PATH = "/wearable_data";
+
+        // Create a DataMap object and send it to the data layer
+        DataMap dataMap = new DataMap();
+        dataMap.putLong("time", new Date().getTime());
+        dataMap.putString("hole", "1");
+        dataMap.putString("front", "250");
+        dataMap.putString("middle", "260");
+        dataMap.putString("back", "270");
+        //Requires a new thread to avoid blocking the UI
+        new SendToDataLayerThread("WEARABLE_DATA_PATH", dataMap, googleClient).start();
+
+
+    }
+
+    // Disconnect from the data layer when the Activity stops
+    @Override
+    protected void onStop() {
+        if (null != googleClient && googleClient.isConnected()) {
+            googleClient.disconnect();
+        }
+        super.onStop();
+    }
+
+    // Placeholders for required connection callbacks
+    @Override
+    public void onConnectionSuspended(int cause) { }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) { }
 }
+
+
+
+
+
+

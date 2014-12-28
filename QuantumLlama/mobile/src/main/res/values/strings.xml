@@ -3,7 +3,7 @@
 
     <string name="app_name">Llama Button</string>
     <string name="action_settings">Settings</string>
-    <string name="action_export_llamas">Export</string>
+    <string name="action_wear_llamas">Wear</string>
     <string name="action_clear_llamas">Clear</string>
 
 </resources>
