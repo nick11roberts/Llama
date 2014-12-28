@@ -23,23 +23,19 @@ import java.util.List;
 
 public class LlamaActivity extends Activity {
 
-    private static int LLAMA_SIZE_MULTIPLIER = 150;
-    private static int BUTTON_SIZE_MULTIPLIER = 400;
-    private static int MIN_ROTATION = -90;
-    private static int MAX_ROTATION = 90;
     private RelativeLayout mainLayout;
     private List<ImageView> llamaList = new ArrayList<>();
     private List<RandomLlamaAttributes> randomLlamaAttributesList = new ArrayList<>();
-    private int indexOfLlamaList = 0;
+    //private int indexOfLlamaList = 0;
     private Context c = this;
-    private RelativeLayout.LayoutParams layoutParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llama);
 
-        int buttonSize = relativeImageScale(BUTTON_SIZE_MULTIPLIER);
+        int buttonSizeMultiplier = 400;
+        int buttonSize = relativeImageScale(buttonSizeMultiplier);
         Typeface font = Typeface.createFromAsset(getAssets(),"fonts/Fipps-Regular.otf");
         SpannableString s = new SpannableString("Llama Button");
         ActionBar actionBar = getActionBar();
@@ -61,7 +57,19 @@ public class LlamaActivity extends Activity {
         mainLayout.addView(llamaGeneratingButton);
 
         if(savedInstanceState!=null){
-                for(int i = 0; i<=indexOfLlamaList-1; i++)
+            int indexOfLlamaList = savedInstanceState.getInt("indexOfLlamaList");
+            double[] xCoordList = savedInstanceState.getDoubleArray("xCoordinates");
+            double[] yCoordList = savedInstanceState.getDoubleArray("yCoordinates");
+            double[] rCoordList = savedInstanceState.getDoubleArray("rCoordinates");
+
+            for (int i=0; i<=indexOfLlamaList-1; i++){
+                RandomLlamaAttributes llamaAttributes = new RandomLlamaAttributes();
+                llamaAttributes.setX(xCoordList[i]);
+                llamaAttributes.setY(yCoordList[i]);
+                llamaAttributes.setRotation(rCoordList[i]);
+                randomLlamaAttributesList.add(llamaAttributes);
+            }
+                for(int i = 0; i<=randomLlamaAttributesList.size()-1; i++)
                     addLlamaToScreen(randomLlamaAttributesList.get(i));
         }
 
@@ -70,108 +78,84 @@ public class LlamaActivity extends Activity {
             public void onClick(View myNiceButton) {
 
                 RandomLlamaAttributes llamaAttributes = new RandomLlamaAttributes();
-                // Give users the option to add multiple llamas per button press? Perhaps an unlock-able
-                // feature after pressing the button a lot of times?
-                //for(int i=0; i<=n-1; i++)
+                /*
+                Give users the option to add multiple llamas per button press? Perhaps an unlock-able
+                feature after pressing the button a lot of times?
+                */
 
-                /////////////////////////////// THIS IS WHERE THE RANDOM STUFF MATTERS.
+                /* THIS IS WHERE THE RANDOM STUFF MATTERS */
                 llamaAttributes.setRotation(Math.random());
                 llamaAttributes.setX(Math.random());
                 llamaAttributes.setY(Math.random());
                 randomLlamaAttributesList.add(llamaAttributes);
 
                 addLlamaToScreen(llamaAttributes);
-
-                // INCREMENT COUNTER
-                indexOfLlamaList++;
             }
         });
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
 
+        int indexOfLlamaList = randomLlamaAttributesList.size();
+        double[] xCoordList = new double[randomLlamaAttributesList.size()];
+        double[] yCoordList = new double[randomLlamaAttributesList.size()];
+        double[] rCoordList = new double[randomLlamaAttributesList.size()];
 
-        double[] xCoordList = new double[indexOfLlamaList];
-        double[] yCoordList = new double[indexOfLlamaList];
-        double[] rCoordList = new double[indexOfLlamaList];
-
-        for (int i=0; i<=indexOfLlamaList-1; i++){
+        for (int i=0; i<=randomLlamaAttributesList.size()-1; i++){
             xCoordList[i]=randomLlamaAttributesList.get(i).getX();
-            Log.d("saveLlamaBundleInfoX",Double.toString(xCoordList[i]));
             yCoordList[i]=randomLlamaAttributesList.get(i).getY();
             rCoordList[i]=randomLlamaAttributesList.get(i).getRotation();
         }
 
         savedInstanceState.putInt("indexOfLlamaList", indexOfLlamaList);
-        Log.d("saveLlamaBundleInfoIndex",Integer.toString(indexOfLlamaList));
         savedInstanceState.putDoubleArray("xCoordinates",xCoordList);
         savedInstanceState.putDoubleArray("yCoordinates",yCoordList);
         savedInstanceState.putDoubleArray("rCoordinates",rCoordList);
-
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        indexOfLlamaList = savedInstanceState.getInt("indexOfLlamaList");
-        Log.d("restoreLlamaBundleInfoIndex",Integer.toString(indexOfLlamaList));
-        double[] xCoordList = savedInstanceState.getDoubleArray("xCoordinates");
-        double[] yCoordList = savedInstanceState.getDoubleArray("yCoordinates");
-        double[] rCoordList = savedInstanceState.getDoubleArray("rCoordinates");
-        //RandomLlamaAttributes[] llamaAttributes = new RandomLlamaAttributes[indexOfLlamaList];
-
-        for (int i=0; i<=indexOfLlamaList-1; i++){
-            RandomLlamaAttributes llamaAttributes = new RandomLlamaAttributes();
-            llamaAttributes.setX(xCoordList[i]);
-            Log.d("restoreLlamaBundleInfoX",Double.toString(xCoordList[i]));
-            llamaAttributes.setY(yCoordList[i]);
-            llamaAttributes.setRotation(rCoordList[i]);
-            randomLlamaAttributesList.add(llamaAttributes);
-            Log.d("restoreLlamaBundleInfoLlamaAttrListIndex",Integer.toString(randomLlamaAttributesList.size()));
-        }
 
     }
 
     private void addLlamaToScreen(RandomLlamaAttributes newestLlamaAttributes){
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics ();
-        int llamaSize = relativeImageScale(LLAMA_SIZE_MULTIPLIER);
+        int llamaSizeMultiplier = 150;
+        int llamaSize = relativeImageScale(llamaSizeMultiplier);
         ImageView newestLlama = new ImageView(c);
         TypedValue tv = new TypedValue();
         int actionBarHeight;
 
         display.getMetrics(metrics);
 
-        ///// SET HEIGHT LAYOUT PARAMETER
-        layoutParams = new RelativeLayout.LayoutParams(llamaSize, llamaSize);
+        /* SET HEIGHT LAYOUT PARAMETER */
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(llamaSize, llamaSize);
 
-        //// SET SPECIFIC LLAMA IMAGE
+        /* SET SPECIFIC LLAMA IMAGE */
         (newestLlama).setImageResource(R.drawable.llama);
 
-        ///// ROTATIONAL AXIS FOR SPECIFIC LLAMA
+        /* ROTATIONAL AXIS FOR SPECIFIC LLAMA */
         (newestLlama).setPivotX((newestLlama).getX()+(llamaSize/2));
         (newestLlama).setPivotY((newestLlama).getY()+(llamaSize/2));
 
-        ///// RANDOMIZE LLAMA ROTATION
-        (newestLlama).setRotation(MIN_ROTATION + (int) (newestLlamaAttributes.getRotation() * ((MAX_ROTATION - MIN_ROTATION) + 1)));
+        /* RANDOMIZE LLAMA ROTATION */
+        int maxRotation = 90;
+        int minRotation = -90;
+        (newestLlama).setRotation(minRotation + (int) (newestLlamaAttributes.getRotation() * ((maxRotation - minRotation) + 1)));
 
         c.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true);
         actionBarHeight = getResources().getDimensionPixelSize(tv.resourceId);
 
-        ///// POSITION SPECIFIC LLAMA
+        /* POSITION SPECIFIC LLAMA */
         layoutParams.leftMargin = (int) Math.round(newestLlamaAttributes.getX()*(metrics.widthPixels-llamaSize));
         layoutParams.topMargin = (int) Math.round(newestLlamaAttributes.getY()*(metrics.heightPixels-(llamaSize*Math.sqrt(2))-actionBarHeight));
 
-        //// SET PARAMETERS
+        /* SET PARAMETERS */
         newestLlama.setLayoutParams(layoutParams);
 
-        //// ADD TO LLAMA LIST
+        /* ADD TO LLAMA LIST */
         llamaList.add(newestLlama);
 
-        ///// ADD VIEW
+        /* ADD VIEW */
         mainLayout.addView(newestLlama);
 
 
@@ -179,19 +163,20 @@ public class LlamaActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        /* Inflate the menu; this adds items to the action bar if it is present. */
         getMenuInflater().inflate(R.menu.menu_llama, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        /*
+        Handle action bar item clicks here. The action bar will
+        automatically handle clicks on the Home/Up button, so long
+        as you specify a parent activity in AndroidManifest.xml.
+        */
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
