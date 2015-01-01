@@ -1,16 +1,22 @@
 package io.github.nick11roberts.llamaspawningbuttonthing;
 
-import java.io.*;
-import java.net.*;
+
 
 /**
 @author Kristian Lundkvist <kristian.lundkvist@gmail.com>
 
- All credit goes to author. ^^^
+ Credit goes to author. ^^^
+ Some revisions by Nick Roberts.
 */
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
-A class for downloading and parsing a 1024 bytes of random data from http://150.203.48.55/RawChar.php
+A class for downloading and parsing a 1024 bytes of random data from http://150.203.48.55/RawHex.php
 */
 public class AnuRandom{
 
@@ -49,11 +55,35 @@ public class AnuRandom{
 	@param numberOfBytes The number of bytes to download
 	*/
 	public AnuRandom(int numberOfBytes){
-		this.numberOfBytes = numberOfBytes;
+		this.numberOfBytes = numberOfBytes*2; //Slightly altered to account for Hex bytes.
 		this.in = null;
 		this.page = "";
 		this.bytes = "";
 	}
+
+    public double getQRandomMultiplier(){
+
+        //Gets bytes from server, will exit if server inaccessible
+
+        Integer randHexNum = 0;
+        double randMultiplier = 0;
+        AnuRandom random = new AnuRandom(1);
+        String temp = new String(random.getBytes());
+        System.out.println(temp);
+        //Gets bytes from server, throws catchable exception if server inaccessible
+        try {
+            temp = new String(random.getBytesSafe());
+        } catch (IOException e) {
+            //Handle inaccessible server
+        }
+
+
+        //Convert from base 16 string to int
+        randHexNum = Integer.parseInt(temp, 16);
+        randMultiplier = (double)((randHexNum/255.0)); // divide by the max hex value to return a value between 0-1.
+
+        return randMultiplier;
+    }
 
 	/**
 	Set the number of bytes.
@@ -124,7 +154,7 @@ public class AnuRandom{
 	@SuppressWarnings("deprecation")
 	public void getPage() throws MalformedURLException, IOException {
 		try{
-			URL u = new URL("http://150.203.48.55/RawChar.php");
+			URL u = new URL("http://150.203.48.55/RawHex.php"); //Changed from RawChar.php to RawHex.php
 			this.in = new DataInputStream(new BufferedInputStream(u.openStream()));
 			String temp = "";
 			while ((temp = this.in.readLine()) != null){
@@ -158,20 +188,7 @@ public class AnuRandom{
 
 	}
 
-    private double generateQuantumRandomNumber(){
-        double qNum=0;
 
-        //Gets bytes from server, will exit if server inaccessible
-        AnuRandom random = new AnuRandom(2048);
-        String temp = new String(random.getBytes());
-        System.out.println(temp);
-        //Gets bytes from server, throws catchable exception if server inaccessible
-        try {
-            temp = new String(random.getBytesSafe());
-        } catch (IOException e) {
-            //Handle inaccessible server
-        }
 
-        return qNum;
-    }
+
 }

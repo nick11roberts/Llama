@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -23,6 +25,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.Wearable;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -58,6 +61,12 @@ public class LlamaActivity extends Activity implements
 
 
 
+
+
+        ImageButton llamaButton = addButtonToScreen();
+
+
+
         if(savedInstanceState!=null){
             int indexOfLlamaList = savedInstanceState.getInt("indexOfLlamaList");
             double[] xCoordList = savedInstanceState.getDoubleArray("xCoordinates");
@@ -82,7 +91,7 @@ public class LlamaActivity extends Activity implements
                 .addOnConnectionFailedListener(this)
                 .build();
 
-        addButtonToScreen().setOnClickListener(new View.OnClickListener() {
+        llamaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View myNiceButton) {
 
@@ -97,6 +106,11 @@ public class LlamaActivity extends Activity implements
                 llamaAttributes.setX(Math.random());
                 llamaAttributes.setY(Math.random());
                 randomLlamaAttributesList.add(llamaAttributes);
+
+                RetrieveQRandTask qRandGenerator = new RetrieveQRandTask();
+
+
+                //Log.d("AnuRandom", Double.toString(qRandGenerator.getRandomMultiplier()));
 
                 addLlamaToScreen(llamaAttributes);
             }
@@ -224,6 +238,8 @@ public class LlamaActivity extends Activity implements
 
         return imageSize;
     }
+
+
 
 
 
