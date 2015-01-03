@@ -26,7 +26,7 @@
     <!-- ActionBar title widget -->
     <style name="ActionBarWidget"
         parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:background">@color/primary</item>
+        <!--<item name="android:background">@color/primary</item>-->
         <item name="android:textColor">@color/background</item>
     </style>
 

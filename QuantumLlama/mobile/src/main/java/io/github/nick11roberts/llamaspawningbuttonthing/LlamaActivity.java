@@ -32,7 +32,9 @@ import java.util.List;
 
 public class LlamaActivity extends Activity implements
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
+        GoogleApiClient.OnConnectionFailedListener,
+        RetrieveQRandResponse{
+
 
     private RelativeLayout mainLayout;
     private List<Integer> llamaIdList = new ArrayList<>();
@@ -48,8 +50,10 @@ public class LlamaActivity extends Activity implements
         setContentView(R.layout.activity_llama);
 
 
+
+
         Typeface font = Typeface.createFromAsset(getAssets(),"fonts/Fipps-Regular.otf");
-        SpannableString s = new SpannableString("Llama Button");
+        SpannableString s = new SpannableString(getResources().getString(R.string.actionbar_title));
         ActionBar actionBar = getActionBar();
 
 
@@ -58,9 +62,6 @@ public class LlamaActivity extends Activity implements
         s.setSpan(new CustomTypefaceSpan("Fipps-Regular.otf", font), 0, s.length(),
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         actionBar.setTitle(s);
-
-
-
 
 
         ImageButton llamaButton = addButtonToScreen();
@@ -107,10 +108,7 @@ public class LlamaActivity extends Activity implements
                 llamaAttributes.setY(Math.random());
                 randomLlamaAttributesList.add(llamaAttributes);
 
-                RetrieveQRandTask qRandGenerator = new RetrieveQRandTask();
 
-
-                //Log.d("AnuRandom", Double.toString(qRandGenerator.getRandomMultiplier()));
 
                 addLlamaToScreen(llamaAttributes);
             }
@@ -213,16 +211,32 @@ public class LlamaActivity extends Activity implements
             randomLlamaAttributesList.clear();
             return true;
         }
+        else if(id == R.id.action_quantum_randomize_llamas){
+
+            // EXECUTE RANDOMIZATION THREAD.
+
+            return true;
+        }
+        else if(id == R.id.action_download_quantum_llamas){
+
+            new RetrieveQRandTask(this).execute(4); // temporary value
+
+            return true;
+        }
         else if(id == R.id.action_wear_llamas){
             /* Do something. */
             return true;
         }
-        else if(id == R.id.action_settings){
-            /* Do something. */
+        /*else if(id == R.id.action_settings){
+
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void processFinish(Double[][] output){
+        //this you will received result fired from async class of onPostExecute(result) method.
     }
 
     private int relativeImageScale(int multiplier){

@@ -2,8 +2,12 @@
 <resources>
 
     <string name="app_name">Llama Button</string>
+    <string name="actionbar_title">Llama</string>
     <string name="action_settings">Settings</string>
-    <string name="action_wear_llamas">Wear</string>
+    <string name="action_wear_llamas">Send Llamas to Wear</string>
+    <string name="action_quantum_randomize_llamas">Convert to qLlamas</string>
+    <string name="action_download_quantum_llamas">Download 50 qLlamas</string>
     <string name="action_clear_llamas">Clear</string>
+
 
 </resources>
