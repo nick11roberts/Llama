@@ -4,9 +4,10 @@
     <string name="app_name">Llama Button</string>
     <string name="actionbar_title">Llama</string>
     <string name="action_settings">Settings</string>
-    <string name="action_wear_llamas">Send Llamas to Wear</string>
-    <string name="action_quantum_randomize_llamas">Convert to qLlamas</string>
-    <string name="action_download_quantum_llamas">Download 50 qLlamas</string>
+    <string name="action_wear_llamas">Send llamas to Wear</string>
+    <string name="action_algorithm_randomize_llamas">Randomize llamas</string>
+    <string name="action_quantum_randomize_llamas">Quantum randomize llamas</string>
+    <string name="action_download_quantum_llamas">Get n quantum llamas</string>
     <string name="action_clear_llamas">Clear</string>
 
 

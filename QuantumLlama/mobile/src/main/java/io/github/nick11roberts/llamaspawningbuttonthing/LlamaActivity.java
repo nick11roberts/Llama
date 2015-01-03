@@ -40,6 +40,10 @@ public class LlamaActivity extends Activity implements
     private List<Integer> llamaIdList = new ArrayList<>();
     private UniqueViewIdCreator idCreator = new UniqueViewIdCreator();
     private List<RandomLlamaAttributes> randomLlamaAttributesList = new ArrayList<>();
+    private final Integer NUMBER_OF_REQUIRED_Q_RANDS = 3;
+    //temporary value //must be divisible by NUMBER_OF_REQUIRED_Q_RANDS. //accounts for x, y coordinates and rotation.
+    private final Integer NUMBER_OF_QLLAMAS = 32*NUMBER_OF_REQUIRED_Q_RANDS;
+    private double[][] quantumRandomNumList = new double[NUMBER_OF_QLLAMAS][NUMBER_OF_REQUIRED_Q_RANDS];
     private Context c = this;
     GoogleApiClient googleClient;
 
@@ -74,15 +78,7 @@ public class LlamaActivity extends Activity implements
             double[] yCoordList = savedInstanceState.getDoubleArray("yCoordinates");
             double[] rCoordList = savedInstanceState.getDoubleArray("rCoordinates");
 
-            for (int i=0; i<=indexOfLlamaList-1; i++){
-                RandomLlamaAttributes llamaAttributes = new RandomLlamaAttributes();
-                llamaAttributes.setX(xCoordList[i]);
-                llamaAttributes.setY(yCoordList[i]);
-                llamaAttributes.setRotation(rCoordList[i]);
-                randomLlamaAttributesList.add(llamaAttributes);
-            }
-                for(int i = 0; i<=randomLlamaAttributesList.size()-1; i++)
-                    addLlamaToScreen(randomLlamaAttributesList.get(i));
+            updateLlamas(indexOfLlamaList, xCoordList, yCoordList, rCoordList);
         }
 
 
@@ -113,6 +109,18 @@ public class LlamaActivity extends Activity implements
                 addLlamaToScreen(llamaAttributes);
             }
         });
+    }
+
+    private void updateLlamas(int indexOfLlamaList, double[] xCoordList, double[] yCoordList, double[]rCoordList){
+        for (int i=0; i<=indexOfLlamaList-1; i++){
+            RandomLlamaAttributes llamaAttributes = new RandomLlamaAttributes();
+            llamaAttributes.setX(xCoordList[i]);
+            llamaAttributes.setY(yCoordList[i]);
+            llamaAttributes.setRotation(rCoordList[i]);
+            randomLlamaAttributesList.add(llamaAttributes);
+        }
+        for(int i = 0; i<=randomLlamaAttributesList.size()-1; i++)
+            addLlamaToScreen(randomLlamaAttributesList.get(i));
     }
 
     @Override
@@ -205,21 +213,38 @@ public class LlamaActivity extends Activity implements
         int id = item.getItemId();
 
         if(id == R.id.action_clear_llamas) {
-            for(int i=0; i<=llamaIdList.size()-1; i++){
-                mainLayout.removeView(findViewById(llamaIdList.get(i)));
+            this.clearLlamas();
+            return true;
+        }
+        else if(id == R.id.action_algorithm_randomize_llamas){
+            int llamaListSize = llamaIdList.size();
+            double[] xCoordinates = new double[llamaListSize];
+            double[] yCoordinates = new double[llamaListSize];
+            double[] rCoordinates = new double[llamaListSize];
+
+            for(int i=0; i<=llamaListSize-1; i++){
+                xCoordinates[i] = Math.random();
+                yCoordinates[i] = Math.random();
+                rCoordinates[i] = Math.random();
             }
-            randomLlamaAttributesList.clear();
+            
+            this.clearLlamas();
+            updateLlamas(llamaListSize,xCoordinates,yCoordinates,rCoordinates);
             return true;
         }
         else if(id == R.id.action_quantum_randomize_llamas){
 
-            // EXECUTE RANDOMIZATION THREAD.
+            new RetrieveQRandTask(this).execute(
+                    new AsyncTaskParams(llamaIdList.size()*NUMBER_OF_REQUIRED_Q_RANDS,true)
+            );
 
             return true;
         }
         else if(id == R.id.action_download_quantum_llamas){
 
-            new RetrieveQRandTask(this).execute(4); // temporary value // must be divisible by 2. // accounts for x and y coordinates.
+            new RetrieveQRandTask(this).execute(
+                    new AsyncTaskParams(NUMBER_OF_QLLAMAS,false)
+            );
 
             return true;
         }
@@ -227,16 +252,40 @@ public class LlamaActivity extends Activity implements
             /* Do something. */
             return true;
         }
-        /*else if(id == R.id.action_settings){
+        else if(id == R.id.action_settings){
 
             return true;
-        }*/
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void processFinish(Double[][] output){
-        //this you will received result fired from async class of onPostExecute(result) method.
+    public void processFinish(double[][] output){
+        quantumRandomNumList = output;
+    }
+
+    public void processFinishConversionTask(double[][] output){
+        int llamaListSize = llamaIdList.size();
+        double[] xCoordinates = new double[llamaListSize];
+        double[] yCoordinates = new double[llamaListSize];
+        double[] rCoordinates = new double[llamaListSize];
+
+        for(int i=0; i<=llamaListSize-1; i++){
+            xCoordinates[i] = output[i][0];
+            yCoordinates[i] = output[i][1];
+            rCoordinates[i] = output[i][2];
+        }
+
+        this.clearLlamas();
+        updateLlamas(llamaListSize,xCoordinates,yCoordinates,rCoordinates);
+    }
+
+    private void clearLlamas(){
+        for(int i=0; i<=llamaIdList.size()-1; i++){
+            mainLayout.removeView(findViewById(llamaIdList.get(i)));
+        }
+        randomLlamaAttributesList.clear();
+        llamaIdList.clear();
     }
 
     private int relativeImageScale(int multiplier){

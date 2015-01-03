@@ -5,27 +5,26 @@ import android.util.Log;
 
 import java.io.IOException;
 
-public class RetrieveQRandTask extends AsyncTask<Integer, Void, Double[][]> {
+public class RetrieveQRandTask extends AsyncTask<AsyncTaskParams, Void, double[][]> {
 
     public RetrieveQRandResponse delegate = null;
+    private AsyncTaskParams taskParameters;
 
     public RetrieveQRandTask(RetrieveQRandResponse delegate){
         this.delegate=delegate;
     }
 
-    private Double[][] getRandomMultiplier(Integer n){
+    private double[][] getRandomMultiplier(Integer n){
 
         //Gets bytes from server, will exit if server inaccessible
-        Integer randHexNum = 0;
-        Double[][] randMultiplier = new Double[n/2][2];
-        String[][] deconstructedString = new String[n/2][2];
+        Integer randHexNum;
+        Integer numberOfRequiredRands = 3;
+        double[][] randMultiplier = new double[n/numberOfRequiredRands][numberOfRequiredRands];
+        String[][] deconstructedString = new String[n/numberOfRequiredRands][numberOfRequiredRands];
         AnuRandom random = new AnuRandom(n);
         String hexFromServer = new String(random.getBytes());
         int strSplitCounter = 0;
         int strSplitEnd = 2;
-
-        int iteratorDimensionOne = 0;
-        int iteratorDimensionTwo = 0;
 
         //Gets bytes from server, throws catchable exception if server inaccessible
         try {
@@ -34,9 +33,11 @@ public class RetrieveQRandTask extends AsyncTask<Integer, Void, Double[][]> {
             //Handle inaccessible server
         }
 
+        Log.d("RetrieveQRandTask", hexFromServer);
+
         // algorithm for adding and converting string hex bytes to 0-1 range random double array
-        for(int i=0; i<=(n/2)-1; i++){
-            for(int j=0; j<=1; j++){
+        for(int i=0; i<=(n/numberOfRequiredRands)-1; i++){
+            for(int j=0; j<=numberOfRequiredRands-1; j++){
                 String ss = hexFromServer.substring(strSplitCounter , strSplitEnd);
                 deconstructedString[i][j] = ss;
 
@@ -54,8 +55,9 @@ public class RetrieveQRandTask extends AsyncTask<Integer, Void, Double[][]> {
 
     /** The system calls this to perform work in a worker thread and
      * delivers it the parameters given to AsyncTask.execute() */
-    protected Double[][] doInBackground(Integer... n) {
-        return getRandomMultiplier(n[0]);
+    protected double[][] doInBackground(AsyncTaskParams... parameters) {
+        this.taskParameters = parameters[0];
+        return getRandomMultiplier(parameters[0].getN());
     }
 
     @Override
@@ -66,8 +68,11 @@ public class RetrieveQRandTask extends AsyncTask<Integer, Void, Double[][]> {
     protected void onProgressUpdate(Void... values) {
     }
 
-    protected void onPostExecute(Double[][] result) {
-        delegate.processFinish(result);
+    protected void onPostExecute(double[][] result) {
+        if(this.taskParameters.getIsConversionTask())
+            delegate.processFinishConversionTask(result);
+        else
+            delegate.processFinish(result);
     }
 
 
