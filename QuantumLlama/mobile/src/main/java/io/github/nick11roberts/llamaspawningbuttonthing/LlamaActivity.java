@@ -219,7 +219,7 @@ public class LlamaActivity extends Activity implements
         }
         else if(id == R.id.action_download_quantum_llamas){
 
-            new RetrieveQRandTask(this).execute(4); // temporary value
+            new RetrieveQRandTask(this).execute(4); // temporary value // must be divisible by 2. // accounts for x and y coordinates.
 
             return true;
         }
