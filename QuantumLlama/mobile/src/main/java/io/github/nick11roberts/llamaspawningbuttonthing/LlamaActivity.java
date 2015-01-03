@@ -2,8 +2,10 @@ package io.github.nick11roberts.llamaspawningbuttonthing;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Spannable;
@@ -37,6 +39,7 @@ public class LlamaActivity extends Activity implements
 
 
     private RelativeLayout mainLayout;
+    private ProgressDialog dialog;
     private List<Integer> llamaIdList = new ArrayList<>();
     private UniqueViewIdCreator idCreator = new UniqueViewIdCreator();
     private List<RandomLlamaAttributes> randomLlamaAttributesList = new ArrayList<>();
@@ -44,7 +47,7 @@ public class LlamaActivity extends Activity implements
     //temporary value //must be divisible by NUMBER_OF_REQUIRED_Q_RANDS. //accounts for x, y coordinates and rotation.
     private final Integer NUMBER_OF_QLLAMAS = 32*NUMBER_OF_REQUIRED_Q_RANDS;
     private double[][] quantumRandomNumList = new double[NUMBER_OF_QLLAMAS][NUMBER_OF_REQUIRED_Q_RANDS];
-    private Context c = this;
+    private Context c = LlamaActivity.this;
     GoogleApiClient googleClient;
 
 
@@ -227,14 +230,14 @@ public class LlamaActivity extends Activity implements
                 yCoordinates[i] = Math.random();
                 rCoordinates[i] = Math.random();
             }
-            
+
             this.clearLlamas();
             updateLlamas(llamaListSize,xCoordinates,yCoordinates,rCoordinates);
             return true;
         }
         else if(id == R.id.action_quantum_randomize_llamas){
 
-            new RetrieveQRandTask(this).execute(
+            new RetrieveQRandTask(this, c).execute(
                     new AsyncTaskParams(llamaIdList.size()*NUMBER_OF_REQUIRED_Q_RANDS,true)
             );
 
@@ -242,7 +245,7 @@ public class LlamaActivity extends Activity implements
         }
         else if(id == R.id.action_download_quantum_llamas){
 
-            new RetrieveQRandTask(this).execute(
+            new RetrieveQRandTask(this, c).execute(
                     new AsyncTaskParams(NUMBER_OF_QLLAMAS,false)
             );
 
@@ -301,6 +304,10 @@ public class LlamaActivity extends Activity implements
 
         return imageSize;
     }
+
+
+
+
 
 
 

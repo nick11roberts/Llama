@@ -1,6 +1,8 @@
 package io.github.nick11roberts.llamaspawningbuttonthing;
 
 
+import android.content.Context;
+
 public class AsyncTaskParams {
     private Integer n;
     private Boolean isConversionTask;
@@ -8,6 +10,7 @@ public class AsyncTaskParams {
     public AsyncTaskParams(){
         n = 0;
         isConversionTask = true;
+
     }
 
     public AsyncTaskParams(Integer nInput, Boolean isConversionTaskInput){
@@ -15,16 +18,8 @@ public class AsyncTaskParams {
         this.isConversionTask = isConversionTaskInput;
     }
 
-    public void setN(Integer nInput){
-        this.n = nInput;
-    }
-
     public Integer getN(){
         return this.n;
-    }
-
-    public void setIsConversionTask(Boolean isConversionTaskInput){
-        this.isConversionTask = isConversionTaskInput;
     }
 
     public Boolean getIsConversionTask(){
