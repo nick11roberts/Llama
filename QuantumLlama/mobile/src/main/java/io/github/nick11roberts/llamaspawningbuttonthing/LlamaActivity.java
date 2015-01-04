@@ -37,7 +37,6 @@ public class LlamaActivity extends Activity implements
         GoogleApiClient.OnConnectionFailedListener,
         RetrieveQRandResponse{
 
-
     private RelativeLayout mainLayout;
     private ProgressDialog dialog;
     private List<Integer> llamaIdList = new ArrayList<>();
@@ -339,7 +338,7 @@ public class LlamaActivity extends Activity implements
         dataMap.putString("middle", "260");
         dataMap.putString("back", "270");
         //Requires a new thread to avoid blocking the UI
-        new SendToDataLayerThread("WEARABLE_DATA_PATH", dataMap, googleClient).start();
+        new SendToDataLayerThread(WEARABLE_DATA_PATH, dataMap, googleClient).start();
 
 
     }
