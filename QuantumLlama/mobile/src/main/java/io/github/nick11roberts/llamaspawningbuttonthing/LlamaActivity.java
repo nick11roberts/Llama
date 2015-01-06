@@ -5,13 +5,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -21,13 +18,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.Wearable;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,10 +39,11 @@ public class LlamaActivity extends Activity implements
     private List<Integer> llamaIdList = new ArrayList<>();
     private UniqueViewIdCreator idCreator = new UniqueViewIdCreator();
     private List<RandomLlamaAttributes> randomLlamaAttributesList = new ArrayList<>();
-    private final Integer NUMBER_OF_REQUIRED_Q_RANDS = 3;
-    //temporary value //must be divisible by NUMBER_OF_REQUIRED_Q_RANDS. //accounts for x, y coordinates and rotation.
-    private final Integer NUMBER_OF_QLLAMAS = 32*NUMBER_OF_REQUIRED_Q_RANDS;
-    private double[][] quantumRandomNumList = new double[NUMBER_OF_QLLAMAS][NUMBER_OF_REQUIRED_Q_RANDS];
+    private final Integer NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA = 3;
+    private final int DEFAULT_QUANTUM_LLAMA_DOWNLOAD_SIZE = 5;
+    private final int TOTAL_NUMBER_OF_QRANDS = DEFAULT_QUANTUM_LLAMA_DOWNLOAD_SIZE * NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA;
+    private double[][] quantumRandomNumList = new double[TOTAL_NUMBER_OF_QRANDS][NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA];
+    private int quantumLlamaDepletionCounter = 0;
     private Context c = LlamaActivity.this;
     GoogleApiClient googleClient;
 
@@ -100,13 +98,25 @@ public class LlamaActivity extends Activity implements
                 feature after pressing the button a lot of times?
                 */
 
-                /* THIS IS WHERE THE RANDOM STUFF MATTERS */
-                llamaAttributes.setRotation(Math.random());
-                llamaAttributes.setX(Math.random());
-                llamaAttributes.setY(Math.random());
+                if(quantumLlamaDepletionCounter >= 1){
+                    llamaAttributes.setX(quantumRandomNumList[quantumLlamaDepletionCounter-1][0]);
+                    llamaAttributes.setY(quantumRandomNumList[quantumLlamaDepletionCounter-1][1]);
+                    llamaAttributes.setRotation(quantumRandomNumList[quantumLlamaDepletionCounter-1][2]);
+                    quantumLlamaDepletionCounter--;
+                    if(quantumLlamaDepletionCounter <= 3 && quantumLlamaDepletionCounter >= 1){
+                        Toast.makeText(
+                                c,
+                                Integer.toString(quantumLlamaDepletionCounter)+" quantum llamas remaining",
+                                Toast.LENGTH_SHORT
+                        ).show();
+                    }
+                }else {
+                    llamaAttributes.setX(Math.random());
+                    llamaAttributes.setY(Math.random());
+                    llamaAttributes.setRotation(Math.random());
+                }
+
                 randomLlamaAttributesList.add(llamaAttributes);
-
-
 
                 addLlamaToScreen(llamaAttributes);
             }
@@ -237,7 +247,7 @@ public class LlamaActivity extends Activity implements
         else if(id == R.id.action_quantum_randomize_llamas){
 
             new RetrieveQRandTask(this, c).execute(
-                    new AsyncTaskParams(llamaIdList.size()*NUMBER_OF_REQUIRED_Q_RANDS,true)
+                    new AsyncTaskParams(llamaIdList.size()* NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA,true)
             );
 
             return true;
@@ -245,7 +255,7 @@ public class LlamaActivity extends Activity implements
         else if(id == R.id.action_download_quantum_llamas){
 
             new RetrieveQRandTask(this, c).execute(
-                    new AsyncTaskParams(NUMBER_OF_QLLAMAS,false)
+                    new AsyncTaskParams(TOTAL_NUMBER_OF_QRANDS,false)
             );
 
             return true;
@@ -255,7 +265,7 @@ public class LlamaActivity extends Activity implements
             return true;
         }
         else if(id == R.id.action_settings){
-
+            /* Do something. */
             return true;
         }
 
@@ -263,6 +273,16 @@ public class LlamaActivity extends Activity implements
     }
 
     public void processFinish(double[][] output){
+
+        //provides the number of sets of coordinates (one set per llama, each set contains 3 elements [x,y,r])
+        quantumLlamaDepletionCounter = TOTAL_NUMBER_OF_QRANDS / NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA;
+
+        Toast.makeText(
+                c,
+                Integer.toString(quantumLlamaDepletionCounter)+" quantum llamas downloaded",
+                Toast.LENGTH_SHORT
+        ).show();
+
         quantumRandomNumList = output;
     }
 
