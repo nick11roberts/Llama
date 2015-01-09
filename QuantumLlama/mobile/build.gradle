@@ -15,7 +15,7 @@ android {
         applicationId "io.github.nick11roberts.llamaspawningbuttonthing"
         minSdkVersion 15
         targetSdkVersion 21
-        versionCode 4
+        versionCode 5
         versionName "3.0"
     }
     buildTypes {
