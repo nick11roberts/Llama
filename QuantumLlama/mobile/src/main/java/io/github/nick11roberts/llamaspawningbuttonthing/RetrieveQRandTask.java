@@ -1,38 +1,44 @@
 package io.github.nick11roberts.llamaspawningbuttonthing;
 
-import android.accounts.NetworkErrorException;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.net.ConnectException;
 
 public class RetrieveQRandTask extends AsyncTask<AsyncTaskParams, Integer, double[][]> {
 
 
     public RetrieveQRandResponse delegate = null;
     private AsyncTaskParams taskParameters;
-    private Context c;
+    private Activity c;
     private ProgressDialog progressDialog;
     protected Boolean networkFail = false;
+    private final Integer NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA = 3;
+    private Integer n;
 
 
-    public RetrieveQRandTask(RetrieveQRandResponse delegate, Context context){
+    public RetrieveQRandTask(RetrieveQRandResponse delegate, Activity context, Integer inN){
         this.delegate=delegate;
         this.c = context;
+        this.n = inN;
     }
 
     private double[][] getRandomMultiplier(Integer n){
 
         //Gets bytes from server, will exit if server inaccessible
         Integer randHexNum;
-        Integer numberOfRequiredRands = 3;
-        double[][] randMultiplier = new double[n/numberOfRequiredRands][numberOfRequiredRands];
-        String[][] deconstructedString = new String[n/numberOfRequiredRands][numberOfRequiredRands];
+
+        double[][] randMultiplier = new double[n/ NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA][NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA];
+        String[][] deconstructedString = new String[n/ NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA][NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA];
         String hexFromServer = "";
         int strSplitCounter = 0;
         int strSplitEnd = 2;
@@ -58,16 +64,16 @@ public class RetrieveQRandTask extends AsyncTask<AsyncTaskParams, Integer, doubl
         }
 
         if(networkFail){
-            for (int i = 0; i <= (n / numberOfRequiredRands) - 1; i++) {
-                for (int j = 0; j <= numberOfRequiredRands - 1; j++) {
+            for (int i = 0; i <= (n / NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA) - 1; i++) {
+                for (int j = 0; j <= NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA - 1; j++) {
                     randMultiplier[i][j] = 0;
                 }
             }
         }
         else {
             // algorithm for adding and converting string hex bytes to 0-1 range random double array
-            for (int i = 0; i <= (n / numberOfRequiredRands) - 1; i++) {
-                for (int j = 0; j <= numberOfRequiredRands - 1; j++) {
+            for (int i = 0; i <= (n / NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA) - 1; i++) {
+                for (int j = 0; j <= NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA - 1; j++) {
                     String ss = hexFromServer.substring(strSplitCounter, strSplitEnd);
                     deconstructedString[i][j] = ss;
 
@@ -94,7 +100,32 @@ public class RetrieveQRandTask extends AsyncTask<AsyncTaskParams, Integer, doubl
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        progressDialog = ProgressDialog.show(this.c, "Downloading...","Retrieving quantum llamas", false);
+        if(n == NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA) {
+            progressDialog = ProgressDialog.show(
+                    this.c,
+                    c.getResources().getString(R.string.downloading_head),
+                    c.getResources().getString(R.string.downloading_body_si),
+                    false
+            );
+        }else if(n==0){
+            progressDialog = ProgressDialog.show(
+                    this.c,
+                    c.getResources().getString(R.string.downloading_head),
+                    c.getResources().getString(R.string.downloading_body_pl_start)
+                            +" "+c.getResources().getString(R.string.no_lower)+" "
+                            +c.getResources().getString(R.string.downloading_body_pl_end),
+                    false
+            );
+        }else{
+            progressDialog = ProgressDialog.show(
+                    this.c,
+                    c.getResources().getString(R.string.downloading_head),
+                    c.getResources().getString(R.string.downloading_body_pl_start)
+                            +" "+Integer.toString(n/NUMBER_OF_REQUIRED_Q_RANDS_PER_LLAMA)
+                            +" "+c.getResources().getString(R.string.downloading_body_pl_end),
+                    false
+            );
+        }
     }
 
     @Override
@@ -105,13 +136,26 @@ public class RetrieveQRandTask extends AsyncTask<AsyncTaskParams, Integer, doubl
     protected void onPostExecute(double[][] result) {
 
         if(networkFail){
-            Toast.makeText(this.c,"Network error", Toast.LENGTH_SHORT).show();
+            LayoutInflater inflater = (LayoutInflater) c.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+            View toastLayout = inflater.inflate(R.layout.toast_layout,
+                    (ViewGroup) c.findViewById(R.id.toast_layout_root));
+
+            Toast failToast = new Toast(c);
+
+            CustomTypefaceTextView text = (CustomTypefaceTextView) toastLayout.findViewById(R.id.toast_text);
+            text.setText(c.getResources().getString(R.string.toast_quantum_llama_network_error));
+
+            failToast.setView(toastLayout);
+            failToast.show();
+
         }
 
-        if(this.taskParameters.getIsConversionTask())
-            delegate.processFinishConversionTask(result);
-        else
-            delegate.processFinish(result);
+        if(!networkFail) {
+            if (this.taskParameters.getIsConversionTask())
+                delegate.processFinishConversionTask(result);
+            else
+                delegate.processFinish(result);
+        }
 
         super.onPostExecute(result);
         progressDialog.dismiss();

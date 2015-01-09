@@ -9,6 +9,26 @@
     <string name="action_quantum_randomize_llamas">Quantum randomize llamas</string>
     <string name="action_download_quantum_llamas">Get n quantum llamas</string>
     <string name="action_clear_llamas">Clear</string>
+    <string name="downloading_head">Downloading&#8230;</string>
+    <string name="downloading_body_pl_start">Retrieving</string>
+    <string name="downloading_body_pl_end">quantum llamas</string>
+    <string name="downloading_body_si">Retrieving 1 quantum llama</string>
+
+    <string name="menu_download_llamas_start">Download</string>
+    <string name="menu_download_llamas_end">quantum llamas</string>
+
+    <string name="toast_quantum_llamas_remaining">quantum llamas remaining</string>
+    <string name="toast_quantum_llamas_depleted">Out of quantum llamas</string>
+    <string name="toast_quantum_llama_network_error">Network error</string>
+    <string name="toast_quantum_llamas_downloaded">quantum llamas downloaded</string>
+    <string name="toast_alg_randomize_si">llama randomized</string>
+    <string name="toast_alg_randomize_pl">llamas randomized</string>
+    <string name="toast_q_randomize_si">llama quantum randomized</string>
+    <string name="toast_q_randomize_pl">llamas quantum randomized</string>
+    <string name="toast_clear_pl">llamas removed</string>
+    <string name="toast_clear_si">llama removed</string>
+    <string name="no_lower">no</string>
+    <string name="no_upper">No</string>
 
 
 </resources>

@@ -23,12 +23,19 @@
         android:showAsAction="never"
         tools:ignore="AppCompatResource" />
 
-    <item android:id="@+id/action_download_quantum_llamas"
-        android:icon="@drawable/action_bar_button"
-        android:title="@string/action_download_quantum_llamas"
-        android:orderInCategory="4"
-        android:showAsAction="never"
-        tools:ignore="AppCompatResource" />
+
+    <!-- _________This entry is created programmatically_________ -->
+    <!--<item android:id="@+id/action_download_quantum_llamas"-->
+        <!--android:icon="@drawable/action_bar_button"-->
+        <!--android:title="@string/action_download_quantum_llamas"-->
+        <!--android:orderInCategory="4"-->
+        <!--android:showAsAction="never"-->
+        <!--tools:ignore="AppCompatResource" />-->
+    <!-- ________________________________________________________ -->
+
+    <!--
+
+    Not sure if the world can handle this feature yet.
 
     <item android:id="@+id/action_wear_llamas"
         android:icon="@drawable/action_bar_button"
@@ -37,13 +44,24 @@
         android:showAsAction="never"
         tools:ignore="AppCompatResource" />
 
+    -->
+
+    <!--
+
+    The world is not yet ready for llama settings... Perhaps someday...
+
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="6"
         android:showAsAction="never"
         tools:ignore="AppCompatResource" />
+    -->
         <!-- Settings:
             -Number of quantum llamas to download (n)
+            -Show toast when...
+                -... true
+                -... true
+                -... true
             -About
                 -Fun llama story (perhaps quantum randomly retrieved from a
                     library of several llama stories from GitHub?)

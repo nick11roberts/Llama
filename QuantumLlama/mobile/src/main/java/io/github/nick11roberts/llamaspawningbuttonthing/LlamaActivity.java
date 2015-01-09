@@ -11,10 +11,12 @@ import android.text.SpannableString;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -40,18 +42,20 @@ public class LlamaActivity extends Activity implements
     private UniqueViewIdCreator idCreator = new UniqueViewIdCreator();
     private List<RandomLlamaAttributes> randomLlamaAttributesList = new ArrayList<>();
     private final Integer NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA = 3;
-    private final int DEFAULT_QUANTUM_LLAMA_DOWNLOAD_SIZE = 5;
+    private final int DEFAULT_QUANTUM_LLAMA_DOWNLOAD_SIZE = 10; //will make an option to change this later
+    private int downloadQLlamasMenuItemID;
     private final int TOTAL_NUMBER_OF_QRANDS = DEFAULT_QUANTUM_LLAMA_DOWNLOAD_SIZE * NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA;
     private double[][] quantumRandomNumList = new double[TOTAL_NUMBER_OF_QRANDS][NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA];
     private int quantumLlamaDepletionCounter = 0;
     private Context c = LlamaActivity.this;
-    GoogleApiClient googleClient;
+    private GoogleApiClient googleClient;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llama);
+
 
 
 
@@ -103,13 +107,35 @@ public class LlamaActivity extends Activity implements
                     llamaAttributes.setY(quantumRandomNumList[quantumLlamaDepletionCounter-1][1]);
                     llamaAttributes.setRotation(quantumRandomNumList[quantumLlamaDepletionCounter-1][2]);
                     quantumLlamaDepletionCounter--;
-                    if(quantumLlamaDepletionCounter <= 3 && quantumLlamaDepletionCounter >= 1){
-                        Toast.makeText(
-                                c,
-                                Integer.toString(quantumLlamaDepletionCounter)+" quantum llamas remaining",
-                                Toast.LENGTH_SHORT
-                        ).show();
+
+                    if(quantumLlamaDepletionCounter == 3){
+                        LayoutInflater inflater = getLayoutInflater();
+                        View toastLayout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                        Toast qRemainingToast = new Toast(c);
+
+                        CustomTypefaceTextView text = (CustomTypefaceTextView) toastLayout.findViewById(R.id.toast_text);
+                        text.setText(Integer.toString(quantumLlamaDepletionCounter)+" "+getResources().getString(R.string.toast_quantum_llamas_remaining));
+
+                        qRemainingToast.setView(toastLayout);
+                        qRemainingToast.setDuration(Toast.LENGTH_SHORT);
+                        qRemainingToast.show();
+                    }else if(quantumLlamaDepletionCounter == 0){
+
+                        LayoutInflater inflater = getLayoutInflater();
+                        View toastLayout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                        Toast qRemainingToast = new Toast(c);
+
+                        CustomTypefaceTextView text = (CustomTypefaceTextView) toastLayout.findViewById(R.id.toast_text);
+                        text.setText(getResources().getString(R.string.toast_quantum_llamas_depleted));
+
+                        qRemainingToast.setView(toastLayout);
+                        qRemainingToast.setDuration(Toast.LENGTH_SHORT);
+                        qRemainingToast.show();
+
                     }
+
                 }else {
                     llamaAttributes.setX(Math.random());
                     llamaAttributes.setY(Math.random());
@@ -210,6 +236,14 @@ public class LlamaActivity extends Activity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         /* Inflate the menu; this adds items to the action bar if it is present. */
+
+        downloadQLlamasMenuItemID = menu.add(
+                0, 0, 10,
+                getResources().getString(R.string.menu_download_llamas_start)+" "
+                        + Integer.toString(DEFAULT_QUANTUM_LLAMA_DOWNLOAD_SIZE)
+                        +" " +getResources().getString(R.string.menu_download_llamas_end)
+        ).getItemId();
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_llama, menu);
         return super.onCreateOptionsMenu(menu);
@@ -225,6 +259,26 @@ public class LlamaActivity extends Activity implements
         int id = item.getItemId();
 
         if(id == R.id.action_clear_llamas) {
+
+            LayoutInflater inflater = getLayoutInflater();
+            View toastLayout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            Toast clearToast = new Toast(c);
+
+            CustomTypefaceTextView text = (CustomTypefaceTextView) toastLayout.findViewById(R.id.toast_text);
+
+            //This is mostly for grammar
+            if(llamaIdList.size()>=2)
+                text.setText(Integer.toString(llamaIdList.size())+" "+getResources().getString(R.string.toast_clear_pl));
+            else if(llamaIdList.size()==1)
+                text.setText(Integer.toString(llamaIdList.size())+" "+getResources().getString(R.string.toast_clear_si));
+            else
+                text.setText(getResources().getString(R.string.no_upper)+" "+getResources().getString(R.string.toast_clear_pl));
+
+            clearToast.setView(toastLayout);
+            clearToast.setDuration(Toast.LENGTH_SHORT);
+            clearToast.show();
+
             this.clearLlamas();
             return true;
         }
@@ -242,46 +296,73 @@ public class LlamaActivity extends Activity implements
 
             this.clearLlamas();
             updateLlamas(llamaListSize,xCoordinates,yCoordinates,rCoordinates);
+
+            LayoutInflater inflater = getLayoutInflater();
+            View toastLayout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            Toast randomizeToast = new Toast(c);
+
+            CustomTypefaceTextView text = (CustomTypefaceTextView) toastLayout.findViewById(R.id.toast_text);
+
+            //This is mostly for grammar
+            if(llamaIdList.size()>=2)
+                text.setText(Integer.toString(llamaIdList.size())+" "+getResources().getString(R.string.toast_alg_randomize_pl));
+            else if(llamaIdList.size()==1)
+                text.setText(Integer.toString(llamaIdList.size())+" "+getResources().getString(R.string.toast_alg_randomize_si));
+            else
+                text.setText(getResources().getString(R.string.no_upper)+" "+getResources().getString(R.string.toast_alg_randomize_pl));
+
+            randomizeToast.setView(toastLayout);
+            randomizeToast.setDuration(Toast.LENGTH_SHORT);
+            randomizeToast.show();
+
             return true;
         }
         else if(id == R.id.action_quantum_randomize_llamas){
 
-            new RetrieveQRandTask(this, c).execute(
+            new RetrieveQRandTask(this, this, llamaIdList.size()* NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA).execute(
                     new AsyncTaskParams(llamaIdList.size()* NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA,true)
             );
 
             return true;
         }
-        else if(id == R.id.action_download_quantum_llamas){
+        else if(id == downloadQLlamasMenuItemID){ // special case because it must be created dynamically.
 
-            new RetrieveQRandTask(this, c).execute(
+            new RetrieveQRandTask(this, this, TOTAL_NUMBER_OF_QRANDS).execute(
                     new AsyncTaskParams(TOTAL_NUMBER_OF_QRANDS,false)
             );
 
             return true;
         }
-        else if(id == R.id.action_wear_llamas){
-            /* Do something. */
+
+        /*else if(id == R.id.action_wear_llamas){
+            *//* Do something. *//*
             return true;
         }
         else if(id == R.id.action_settings){
-            /* Do something. */
+            *//* Do something. *//*
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
 
     public void processFinish(double[][] output){
 
+        LayoutInflater inflater = getLayoutInflater();
+        View toastLayout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout_root));
+
         //provides the number of sets of coordinates (one set per llama, each set contains 3 elements [x,y,r])
         quantumLlamaDepletionCounter = TOTAL_NUMBER_OF_QRANDS / NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA;
 
-        Toast.makeText(
-                c,
-                Integer.toString(quantumLlamaDepletionCounter)+" quantum llamas downloaded",
-                Toast.LENGTH_SHORT
-        ).show();
+        Toast qDownloadedToast = new Toast(c);
+
+        CustomTypefaceTextView text = (CustomTypefaceTextView) toastLayout.findViewById(R.id.toast_text);
+        text.setText(Integer.toString(DEFAULT_QUANTUM_LLAMA_DOWNLOAD_SIZE)+" "+getResources().getString(R.string.toast_quantum_llamas_downloaded));
+
+        qDownloadedToast.setView(toastLayout);
+        qDownloadedToast.setDuration(Toast.LENGTH_SHORT);
+        qDownloadedToast.show();
 
         quantumRandomNumList = output;
     }
@@ -300,6 +381,25 @@ public class LlamaActivity extends Activity implements
 
         this.clearLlamas();
         updateLlamas(llamaListSize,xCoordinates,yCoordinates,rCoordinates);
+
+        LayoutInflater inflater = getLayoutInflater();
+        View toastLayout = inflater.inflate(R.layout.toast_layout, (ViewGroup) findViewById(R.id.toast_layout_root));
+
+        Toast qRandomizeToast = new Toast(c);
+
+        CustomTypefaceTextView text = (CustomTypefaceTextView) toastLayout.findViewById(R.id.toast_text);
+
+        //This is mostly for grammar
+        if(llamaIdList.size()>=2)
+            text.setText(Integer.toString(llamaIdList.size())+" "+getResources().getString(R.string.toast_q_randomize_pl));
+        else if(llamaIdList.size()==1)
+            text.setText(Integer.toString(llamaIdList.size())+" "+getResources().getString(R.string.toast_q_randomize_si));
+        else
+            text.setText(getResources().getString(R.string.no_upper)+" "+getResources().getString(R.string.toast_q_randomize_pl));
+
+        qRandomizeToast.setView(toastLayout);
+        qRandomizeToast.setDuration(Toast.LENGTH_SHORT);
+        qRandomizeToast.show();
     }
 
     private void clearLlamas(){

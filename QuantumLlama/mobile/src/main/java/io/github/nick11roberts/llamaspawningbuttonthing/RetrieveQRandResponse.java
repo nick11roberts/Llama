@@ -6,4 +6,5 @@ public interface RetrieveQRandResponse {
     void processFinish(double[][] output);
 
     void processFinishConversionTask(double[][] output);
+
 }
