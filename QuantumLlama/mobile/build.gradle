@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'llama'
             keyPassword 'nick052595'
-            storeFile file('/home/nick/Desktop/LlamaKeystore')
+            storeFile file('/home/nick/Dropbox/ANDROID RELEASE STUFF/llamaRelease stuff/LlamaKeystore')
             storePassword 'nick052595'
         }
     }
