@@ -56,14 +56,9 @@ public class LlamaActivity extends Activity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llama);
 
-
-
-
-
         Typeface font = Typeface.createFromAsset(getAssets(),"fonts/Fipps-Regular.otf");
         SpannableString s = new SpannableString(getResources().getString(R.string.actionbar_title));
         ActionBar actionBar = getActionBar();
-
 
         mainLayout = (RelativeLayout)findViewById(R.id.relLayoutMain);
 
@@ -71,10 +66,7 @@ public class LlamaActivity extends Activity implements
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         actionBar.setTitle(s);
 
-
         ImageButton llamaButton = addButtonToScreen();
-
-
 
         if(savedInstanceState!=null){
             int indexOfLlamaList = savedInstanceState.getInt("indexOfLlamaList");
@@ -84,7 +76,6 @@ public class LlamaActivity extends Activity implements
 
             updateLlamas(indexOfLlamaList, xCoordList, yCoordList, rCoordList);
         }
-
 
         googleClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
@@ -97,6 +88,7 @@ public class LlamaActivity extends Activity implements
             public void onClick(View myNiceButton) {
 
                 RandomLlamaAttributes llamaAttributes = new RandomLlamaAttributes();
+
                 /*
                 Give users the option to add multiple llamas per button press? Perhaps an unlock-able
                 feature after pressing the button a lot of times?
@@ -251,6 +243,7 @@ public class LlamaActivity extends Activity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         /*
         Handle action bar item clicks here. The action bar will
         automatically handle clicks on the Home/Up button, so long
@@ -281,8 +274,7 @@ public class LlamaActivity extends Activity implements
 
             this.clearLlamas();
             return true;
-        }
-        else if(id == R.id.action_algorithm_randomize_llamas){
+        } else if(id == R.id.action_algorithm_randomize_llamas){
             int llamaListSize = llamaIdList.size();
             double[] xCoordinates = new double[llamaListSize];
             double[] yCoordinates = new double[llamaListSize];
@@ -317,16 +309,14 @@ public class LlamaActivity extends Activity implements
             randomizeToast.show();
 
             return true;
-        }
-        else if(id == R.id.action_quantum_randomize_llamas){
+        } else if(id == R.id.action_quantum_randomize_llamas){
 
             new RetrieveQRandTask(this, this, llamaIdList.size()* NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA).execute(
                     new AsyncTaskParams(llamaIdList.size()* NUMBER_OF_REQUIRED_QRANDS_PER_LLAMA,true)
             );
 
             return true;
-        }
-        else if(id == downloadQLlamasMenuItemID){ // special case because it must be created dynamically.
+        } else if(id == downloadQLlamasMenuItemID){ // special case because it must be created dynamically.
 
             new RetrieveQRandTask(this, this, TOTAL_NUMBER_OF_QRANDS).execute(
                     new AsyncTaskParams(TOTAL_NUMBER_OF_QRANDS,false)
@@ -368,6 +358,7 @@ public class LlamaActivity extends Activity implements
     }
 
     public void processFinishConversionTask(double[][] output){
+
         int llamaListSize = llamaIdList.size();
         double[] xCoordinates = new double[llamaListSize];
         double[] yCoordinates = new double[llamaListSize];
@@ -424,14 +415,6 @@ public class LlamaActivity extends Activity implements
         return imageSize;
     }
 
-
-
-
-
-
-
-
-
     /*
      * FOR WEAR
      */
@@ -443,7 +426,7 @@ public class LlamaActivity extends Activity implements
         googleClient.connect();
     }
 
-// Send a data object when the data layer connection is successful.
+    // Send a data object when the data layer connection is successful.
 
     @Override
     public void onConnected(Bundle connectionHint) {
@@ -460,16 +443,17 @@ public class LlamaActivity extends Activity implements
         //Requires a new thread to avoid blocking the UI
         new SendToDataLayerThread(WEARABLE_DATA_PATH, dataMap, googleClient).start();
 
-
     }
 
     // Disconnect from the data layer when the Activity stops
     @Override
     protected void onStop() {
+
         if (null != googleClient && googleClient.isConnected()) {
             googleClient.disconnect();
         }
         super.onStop();
+
     }
 
     // Placeholders for required connection callbacks
@@ -478,10 +462,5 @@ public class LlamaActivity extends Activity implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) { }
+
 }
-
-
-
-
-
-
